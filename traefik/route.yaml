@@ -1,0 +1,30 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: consulingress
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`consul.k8s.com`)
+    kind: Rule
+    services:
+    - name: consul
+      kind: Service
+      port: 8500
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefikingress
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`traefik.k8s.com`)
+    kind: Rule
+    services:
+    - name: api@internal
+      kind: TraefikService

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: consul
+  namespace: default
+  labels:
+    k8s-app: consul
+    app: traefik
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: 8500-8500-tcp
+    nodePort: 30850
+    port: 8500
+    protocol: TCP
+    targetPort: 8500
+  selector:
+    k8s-app: consul
+    qcloud-app: consul
+  sessionAffinity: None
+  # type: NodePort
+  type: LoadBalancer
+
