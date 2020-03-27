@@ -1,0 +1,68 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "7"
+    description: manager
+  creationTimestamp: "2020-01-28T10:12:35Z"
+  generation: 8
+  labels:
+    k8s-app: kafka-manager
+    qcloud-app: kafka-manager
+  name: kafka-manager
+  namespace: default
+  resourceVersion: "8971654271"
+  selfLink: /apis/apps/v1beta2/namespaces/default/deployments/kafka-manager
+  uid: b48c258d-41b6-11ea-8203-068f3b461d43
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: kafka-manager
+      qcloud-app: kafka-manager
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        k8s-app: kafka-manager
+        qcloud-app: kafka-manager
+    spec:
+      containers:
+      - env:
+        - name: ZK_HOSTS
+          value: 172.16.255.xx:2181
+        image: ccr.ccs.tencentyun.com/wind/kafka-manager:latest
+        imagePullPolicy: Always
+        name: manager
+        resources:
+          limits:
+            cpu: 300m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 128Mi
+        securityContext:
+          privileged: false
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: data
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: qcloudregistrykey
+      - name: tencenthubkey
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /data/kafkaManager
+          type: DirectoryOrCreate
+        name: data

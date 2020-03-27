@@ -11,3 +11,6 @@ consul 配置文件，单节点版本
 
 # traefik-tencent
 在腾讯云上搭建的配置文件
+
+# gogs & kafka & kafka-manager & redis & zk
+配置文件
