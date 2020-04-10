@@ -1,0 +1,8 @@
+version: "3"
+services:
+  forent:
+    image: node-front
+    ports:
+      - 8080:8080
+    volumes:
+      - "e:/Coding/vue:/data/code"

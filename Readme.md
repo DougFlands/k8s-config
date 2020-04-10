@@ -14,3 +14,6 @@ consul 配置文件，单节点版本
 
 # gogs & kafka & kafka-manager & redis & zk
 配置文件
+
+# front-development
+前端本地开发环境构建
